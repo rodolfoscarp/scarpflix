@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import Scaffold from "../../../components/Scaffold";
 import { Link } from "react-router-dom";
 import FormField from "../../../components/FomField";
+import Button from "../../../components/Button";
 
 const Video = (props) => {
   const [categorias, setCategorias] = useState([]);
@@ -54,7 +55,7 @@ const Video = (props) => {
           label="Cor"
         />
         <div>
-          <button>Cadastrar</button>
+          <Button>Cadastrar</Button>
         </div>
       </form>
       <ul>
