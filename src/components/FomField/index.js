@@ -82,7 +82,7 @@ const FormField = ({ value, handleChange, name, type, label }) => {
 
   return (
     <FormFieldWrapper>
-      <Label for={fieldId}>
+      <Label htmlFor={fieldId}>
         <Input
           as={tag}
           value={value}

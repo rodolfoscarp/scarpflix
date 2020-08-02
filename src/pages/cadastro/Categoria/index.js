@@ -1,11 +1,25 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Scaffold from "../../../components/Scaffold";
 import { Link } from "react-router-dom";
 import FormField from "../../../components/FomField";
 import Button from "../../../components/Button";
+import firebase from "../../../libs/firebase";
 
 const Video = (props) => {
   const [categorias, setCategorias] = useState([]);
+
+  useEffect(() => {
+    const database = firebase.database();
+    const categoriasRef = database.ref(`categorias/`);
+    categoriasRef
+      .once("value")
+      .then((snapshot) => {
+        setCategorias(snapshot.val());
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }, []);
 
   const valoresIniciais = {
     nome: "",
@@ -31,6 +45,7 @@ const Video = (props) => {
           e.preventDefault();
           setCategorias([...categorias, valores]);
           setValores(valoresIniciais);
+          console.log("clicou");
         }}
       >
         <FormField
@@ -58,9 +73,10 @@ const Video = (props) => {
           <Button>Cadastrar</Button>
         </div>
       </form>
+      {categorias.length === 0 && <div>Carregando...</div>}
       <ul>
         {categorias.map((e, index) => {
-          return <li key={index}>{JSON.stringify(e)}</li>;
+          return <li key={index}>{e.titulo}</li>;
         })}
       </ul>
       <Link to="/">Ir para home</Link>
